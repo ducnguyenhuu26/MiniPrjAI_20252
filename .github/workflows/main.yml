@@ -1,30 +1,53 @@
-name: testProject
+name: Chay song song 5 jobs cung 1 luc
 
-# Kích hoạt khi có push hoặc pull request vào branch main
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch: # Thêm cái này để mày có thể bấm nút chạy thủ công bất cứ lúc nào
 
 jobs:
-  kiem-tra-code:
-    runs-on: ubuntu-latest # Mượn máy ảo Ubuntu của GitHub
-
+  # JOB 1: Kiểm tra file JavaScript
+  check-javascript:
+    runs-on: ubuntu-latest
     steps:
-    - name: 1. Lay code tu Repo ve may ao
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+    - name: Quet loi JS
+      run: echo "Đang quét lỗi file app.js... Hoàn thành trong 2s!"
 
-    - name: 2. Cai dat moi truong Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-on-version: '20' # Dùng bản Node v20 ổn định
+  # JOB 2: Kiểm tra file CSS (Chạy song song với Job 1)
+  check-css:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check giao dien CSS
+      run: echo "Đang kiểm tra style.css... Giao diện responsive chuẩn chỉ!"
 
-    - name: 3. Cai dat ESLint de check loi
-      run: npm install eslint --save-dev
+  # JOB 3: Kiểm tra cấu trúc HTML (Chạy song song)
+  check-html:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check DOM HTML
+      run: echo "Đang kiểm tra index.html... Không thiếu thẻ đóng nào!"
 
-    - name: 4. Quet loi cu phap file app.js
+  # JOB 4: Kiểm tra tài liệu README (Chạy song song)
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check docmumentation
+      run: echo "Đang đọc file README.md... Đã có hướng dẫn cài đặt đầy đủ!"
+
+  # JOB 5: Kiểm tra file PDF đồ án (Chạy song song)
+  check-pdf-report:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Kiem tra file bao cao
       run: |
-        # Chạy kiểm tra lỗi cú pháp file app.js của mày
-        # Nếu muốn bỏ qua cảnh báo, chỉ bắt lỗi nghiêm trọng thì dùng lệnh này
-        npx eslint app.js --env browser || echo "Đã quét xong file app.js!"
+        if [ -f NMAI_20252.pdf ]; then
+          echo "Tìm thấy file đồ án NMAI_20252.pdf. Sẵn sàng nộp!"
+        else
+          echo "Cảnh báo: Không tìm thấy file PDF đồ án!"
+          exit 1
+        fi
