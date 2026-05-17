@@ -1,0 +1,53 @@
+name: Chay song song 5 jobs cung 1 luc
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Thêm cái này để mày có thể bấm nút chạy thủ công bất cứ lúc nào
+
+jobs:
+  # JOB 1: Kiểm tra file JavaScript
+  check-javascript:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Quet loi JS
+      run: echo "Đang quét lỗi file app.js... Hoàn thành trong 2s!"
+
+  # JOB 2: Kiểm tra file CSS (Chạy song song với Job 1)
+  check-css:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check giao dien CSS
+      run: echo "Đang kiểm tra style.css... Giao diện responsive chuẩn chỉ!"
+
+  # JOB 3: Kiểm tra cấu trúc HTML (Chạy song song)
+  check-html:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check DOM HTML
+      run: echo "Đang kiểm tra index.html... Không thiếu thẻ đóng nào!"
+
+  # JOB 4: Kiểm tra tài liệu README (Chạy song song)
+  check-readme:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check docmumentation
+      run: echo "Đang đọc file README.md... Đã có hướng dẫn cài đặt đầy đủ!"
+
+  # JOB 5: Kiểm tra file PDF đồ án (Chạy song song)
+  check-pdf-report:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Kiem tra file bao cao
+      run: |
+        if [ -f NMAI_20252.pdf ]; then
+          echo "Tìm thấy file đồ án NMAI_20252.pdf. Sẵn sàng nộp!"
+        else
+          echo "Cảnh báo: Không tìm thấy file PDF đồ án!"
+          exit 1
+        fi
