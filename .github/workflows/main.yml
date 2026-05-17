@@ -51,3 +51,4 @@ jobs:
           echo "Cảnh báo: Không tìm thấy file PDF đồ án!"
           exit 1
         fi
+  # JOB 6: Xac thuc ma nguon
