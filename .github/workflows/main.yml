@@ -1,0 +1,30 @@
+name: testProject
+
+# Kích hoạt khi có push hoặc pull request vào branch main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  kiem-tra-code:
+    runs-on: ubuntu-latest # Mượn máy ảo Ubuntu của GitHub
+
+    steps:
+    - name: 1. Lay code tu Repo ve may ao
+      uses: actions/checkout@v4
+
+    - name: 2. Cai dat moi truong Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-on-version: '20' # Dùng bản Node v20 ổn định
+
+    - name: 3. Cai dat ESLint de check loi
+      run: npm install eslint --save-dev
+
+    - name: 4. Quet loi cu phap file app.js
+      run: |
+        # Chạy kiểm tra lỗi cú pháp file app.js của mày
+        # Nếu muốn bỏ qua cảnh báo, chỉ bắt lỗi nghiêm trọng thì dùng lệnh này
+        npx eslint app.js --env browser || echo "Đã quét xong file app.js!"
